@@ -1,13 +1,14 @@
-<template>
-  <NuxtLayout>
-    <NuxtPage />
-  </NuxtLayout>
-</template>
-
-<script setup lang="ts">
+<script lang="ts" setup>
 useHead({
   link: [
     { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
   ]
 });
 </script>
+
+
+<template>
+  <NuxtLayout>
+    <NuxtPage />
+  </NuxtLayout>
+</template>

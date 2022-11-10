@@ -6,11 +6,21 @@
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
-    "test": "vitest run"
+    "test": "vitest run",
+    "webstorm-integration": "vitest --watch --reporter=dot --reporter=json --outputFile=.vitest-result.json"
   },
   "devDependencies": {
     "@nuxt/test-utils-edge": "^3.0.0-rc.14-27796957.b60f136",
+    "@vue/test-utils": "^2.2.1",
+    "jsdom": "^20.0.2",
     "nuxt": "3.0.0-rc.13",
+    "sass": "^1.56.1",
+    "unplugin-auto-import": "^0.11.4",
+    "unplugin-vue-components": "^0.22.9",
     "vitest": "^0.25.0"
+  },
+  "dependencies": {
+    "@element-plus/icons-vue": "^2.0.10",
+    "element-plus": "^2.2.20"
   }
 }

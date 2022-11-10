@@ -1,6 +1,7 @@
 # Nuxt3 연구소
 해당 프로젝트를 실행한다면,  
-`/backend` 디렉토리의 서버를 띄우고 실행해야합니다(인프런 - 캡틴판교님의 Nuxt 강의 backend를 가져옴).
+`/backend` 디렉토리의 서버를 띄우고 실행해야합니다(인프런 - 캡틴판교님의 Nuxt 강의 backend를 가져옴).  
+ui library는 element plus를 기반으로 이것저것 가지고 놀아본다. 
 
 ## 변경된 것들
 ### HTML - Head 부분
@@ -84,6 +85,38 @@ react에서 하듯이 순수 타입스크립트를 적으면 되는 것이라 �
 
 ### store(Pinia)
 Vuex5 라고 사실상 보면 된다. 이름이 Pinia로 바뀌었다.
+
+## Element Plus
+Nuxt3에서 Element Plus를 사용하려면 사전작업이 좀 필요한데, 다음의 의존성을 추가로 설치해야 한다.
+- sass
+- @element-plus/icons-vue
+- unplugin-vue-components
+- unplugin-auto-import
+
+이 중에서 `sass`, `unplugin-vue-components`, `unplugin-auto-import`는 개발단에서만 사용하면 되니 dev 디펜던시 목록에 넣도록 한다.
+```shell
+npm i element-plus @element-plus/icons-vue
+npm i -D sass unplugin-auto-import unplugin-vue-components
+```
+
+> https://element-plus.org/en-US/  
+> https://github.com/element-plus/element-plus-nuxt-starter
+
+## test(vitest)
+vite 번들러로 바뀌면서 Jest말고 vite사용을 권한다.  
+Jest에 비해서 vitest는 vite에 특화되어 있으므로 더 빠르다고 주장하고, Jest의 기능들을 많이 가져왔기에 사용에 부담없다고 한다.  
+옆동네 svelte에서도 vite을 쓰는데 vitest를 차용해서 많이 쓰는 것 같다.
+
+한글 자료도 잘 없을 뿐더러, 괜찮은 소개 블로그가 없을까 찾다가 다음의 괜찮은 소개 블로그를 발견했다.
+특히나 React에선 dom에 부착할 때 React Testing Library를 사용하여 `render` 함수를 사용하여 부착 후 Test를 진행할 수 있었는데,  
+Nuxt Test Utils에서는 제공해주지 않는 것 같고, vitest에서도 제공해주지 않아 찾아보니 `@vue/test-utils`를 추가로 설치해주어야되는 것을 확인도 했다.  
+일본어 자료지만 구글 번역을 돌리면 된다. 영어보단 번역이 잘 되는 느낌.
+> https://zenn.dev/ytr0903/articles/8f4e3c0e529c6f
+
+추가로 `js-dom`도 설치를 해주어야 한다.
+```shell
+npm i -D jsdom
+```
 
 ## IDE 문제
 Nuxt에서는 자동 `import`가 제공되기에 명시적으로 `import`문을 제공하기에 굳이 `import`문을 사용할 필요가 없음.  

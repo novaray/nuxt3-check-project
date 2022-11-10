@@ -1,9 +1,4 @@
-<template>
-  <h1>Hello World!</h1>
-  {{info}}
-</template>
-
-<script setup lang="ts">
+<script lang="ts" setup>
 import {ref} from 'vue';
 
 const {data: api} = await useFetch('/api/hello?param1=abcd', {
@@ -14,6 +9,9 @@ const {data: api} = await useFetch('/api/hello?param1=abcd', {
 });
 
 const info = ref(api);
-
-
 </script>
+
+<template>
+  <h1>Hello World!</h1>
+  {{info}}
+</template>
