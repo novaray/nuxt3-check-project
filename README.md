@@ -123,3 +123,35 @@ Nuxt에서는 자동 `import`가 제공되기에 명시적으로 `import`문을 
 그러나, 현재 WebStorm 2022.2버전에서는 제대로 못잡아내어 `import`문을 명시하라고 warning이 발생함.  
 해당 문제는 2022.3버전에서 수정될 예정  
 > https://youtrack.jetbrains.com/issue/WEB-56566/Nuxt-3-global-components-are-unresolved-whereas-they-are-exposed-in-componentsdts
+
+## 좋은 참조 사이트
+일본 블로그에 좋은 자료가 굉장히 많은 것 같다.  
+Vue, Nuxt가 강세인 나라..라서?
+
+> https://zenn.dev/azukiazusa/articles/676d88675e4e74 - Vue 3.2 setup 스크립트 설명  
+> https://zenn.dev/azukiazusa/articles/nuxt3-new-features - Nuxt3 새로운 기술 설명  
+> https://zenn.dev/coedo/articles/cc000738a0f069 - data fetching 설명. 특히 lazy쪽 이해에 도움되었음
+
+# 트러블 슈팅
+Element UI 컴포넌트를 테스트할 때 다음과 같은 워닝이 발생했었다.
+```text
+[Vue warn]: Failed to resolve component: el-button
+If this is a native custom element, make sure to exclude it from component resolution via compilerOptions.isCustomElement. 
+```
+테스트는 진행되는데, 워닝 뜬다는 것 자체가 거슬려서 찾아본 결과 `vitest.config.ts`에 추가 설정을 해주어야했다.  
+`el-`로 시작하는 태그에 문제가 있기에 이것저것 뒤져본 결과 다음 사이트에서 힌트를 알게되어 수정했더니 워닝이 사라졌다.
+> https://stackoverflow.com/questions/71601714/how-to-set-compileroptions-iscustomelement-for-vuejs-3-in-laravel-project
+
+`vitest.config.ts`파일의 plugin 설정에 다음과 같이 추가했다.
+```typescript
+  plugins: [
+    Vue({
+      template: {
+        compilerOptions: {
+          isCustomElement: (tag) => tag.startsWith('el-')
+        }
+      }
+    })
+  ]
+```
+해당 컴파일러 옵션을 추가하니 워닝도 사라지고 테스트도 정상적으로 돌아가는 것을 확인했다.
