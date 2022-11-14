@@ -6,7 +6,7 @@ export default defineNuxtConfig({
     }
   },
   devServer: {
-    port: 5000
+    port: 5001
   },
   modules: [
     [
@@ -20,5 +20,5 @@ export default defineNuxtConfig({
         ],
       },
     ],
-  ],
+  ]
 });

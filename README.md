@@ -57,6 +57,13 @@ Nuxt3에서 `useFetch`와 `useAsyncData`의 차이점은 좀 더 복잡한 로�
 
 > https://v3.nuxtjs.org/getting-started/data-fetching#data-fetching
 
+### port 설정
+Nuxt2 때는 `nuxt.config.js` 파일에 `server.port`부분에 값을 세팅하면 따로 세팅을 안 해도 port가 잘 설정되었다.  
+여기서도 똑같이 설정이 달라졌지만 `devServer.port`에 세팅하면 된다했는데 안 된다? 그래서 서버 띄울 때 `node` 인자로 일단 넘겨줌..
+- `nuxt dev --port=5001`
+
+> https://v3.nuxtjs.org/api/configuration/nuxt-config#port
+
 ## 사라진 것들
 ### static 폴더
 `public` 폴더로 바뀜. favicon 같은 것들은 다 `public` 폴더 안으로 넣으면 됨. 
@@ -133,6 +140,7 @@ Vue, Nuxt가 강세인 나라..라서?
 > https://zenn.dev/coedo/articles/cc000738a0f069 - data fetching 설명. 특히 lazy쪽 이해에 도움되었음
 
 # 트러블 슈팅
+## Element UI Test 이슈
 Element UI 컴포넌트를 테스트할 때 다음과 같은 워닝이 발생했었다.
 ```text
 [Vue warn]: Failed to resolve component: el-button
@@ -155,3 +163,12 @@ If this is a native custom element, make sure to exclude it from component resol
   ]
 ```
 해당 컴파일러 옵션을 추가하니 워닝도 사라지고 테스트도 정상적으로 돌아가는 것을 확인했다.
+
+## pinia 라이브러리 load 이슈
+pinia를 설치 후, 다음과 같은 에러메시지가 발견했다.
+- `Cannot start nuxt:  Cannot find module '@pinia/nuxt'`
+
+찾아봐도, guide대로 했는데 안 되서 답답했는데, 꽤 많은 사람들이 비슷한 현상을 겪는 것 같다.  
+정확한 이유는 모르겠지만 다음 코멘트의 내용을 따라해서 했더니 잘 되었다. 패키지가 꼬인 모양. 이런 걸로 시간 쏟기는 아깝다.
+> https://github.com/nuxt/framework/issues/6623#issuecomment-1248418063
+
