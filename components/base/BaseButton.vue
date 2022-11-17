@@ -1,6 +1,7 @@
 <script lang="ts" setup>
+import { ElButton } from 'element-plus';
 interface Props {
-  message: string;
+  type?: string;
   loading?: boolean;
 }
 
@@ -12,13 +13,18 @@ defineProps<Props>();
 const emit = defineEmits<Emits>();
 
 const handleClick = ({target}: { target: HTMLButtonElement }) => {
-  emit('click', target.value)
+  emit('click', target.value);
 }
 </script>
 
 <template>
-  <el-button id="base-button" :loading="loading" @click="handleClick">
-    {{ message }}
+  <el-button
+      id="base-button"
+      :loading="loading"
+      @click="handleClick"
+      :type="type"
+  >
+    <slot></slot>
   </el-button>
 </template>
 

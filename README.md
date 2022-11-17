@@ -106,8 +106,30 @@ npm i element-plus @element-plus/icons-vue
 npm i -D sass unplugin-auto-import unplugin-vue-components
 ```
 
+style도 프로젝트에 적용 해야하는데,  
+assets/scss/index.scss 파일을 만들어 다음과 같이 기입해주면 된다.
+```scss
+@use "element-plus/dist/index.css";
+```
+
+style 파일을 전역으로 설정해주기 위해 설정을 해주었으니,  
+Element Plus에 대한 의존성을 추가하기 위해 nuxt config 설정과 scss 파일을 `nuxt.config.ts` 파일에 다음과 같이 추가해준다.  
+예제를 보면, `build`할 때만 돌려주도록 되어있다.
+```typescript
+const lifecycle = process.env.npm_lifecycle_event;
+
+export default defineNuxtConfig({
+  // ...
+  css: ["~/assets/scss/index.scss"],
+  build: {
+    transpile: lifecycle === "build" ? ["element-plus"] : [],
+  }
+});
+```
+
 > https://element-plus.org/en-US/  
-> https://github.com/element-plus/element-plus-nuxt-starter
+> https://github.com/element-plus/element-plus-nuxt-starter  
+> https://element-plus.org/en-US/guide/quickstart.html#global-configuration
 
 ## test(vitest)
 vite 번들러로 바뀌면서 Jest말고 vite사용을 권한다.  
@@ -131,6 +153,10 @@ Nuxt에서는 자동 `import`가 제공되기에 명시적으로 `import`문을 
 해당 문제는 2022.3버전에서 수정될 예정  
 > https://youtrack.jetbrains.com/issue/WEB-56566/Nuxt-3-global-components-are-unresolved-whereas-they-are-exposed-in-componentsdts
 
+`emit`에 대해 타입 확인이 여전히 안 되는 걸 확인.  
+이럴꺼면 WebStorm을 쓰는 이유가? 언제 반영될 지는 미지수
+> https://youtrack.jetbrains.com/issue/WEB-52121/Vue-Provide-completion-for-custom-component-events
+
 ## 좋은 참조 사이트
 일본 블로그에 좋은 자료가 굉장히 많은 것 같다.  
 Vue, Nuxt가 강세인 나라..라서?
@@ -138,6 +164,11 @@ Vue, Nuxt가 강세인 나라..라서?
 > https://zenn.dev/azukiazusa/articles/676d88675e4e74 - Vue 3.2 setup 스크립트 설명  
 > https://zenn.dev/azukiazusa/articles/nuxt3-new-features - Nuxt3 새로운 기술 설명  
 > https://zenn.dev/coedo/articles/cc000738a0f069 - data fetching 설명. 특히 lazy쪽 이해에 도움되었음
+
+## 주의할 점
+- Nuxt는 setup 함수(스크립트) 안에서만 ref를 사용해야 하고, 그 외에는 사용을 하지 말아야 한다. 메모리 누수가 발생할 수 있기 때문.
+
+> https://v3.nuxtjs.org/getting-started/state-management#best-practices
 
 # 트러블 슈팅
 ## Element UI Test 이슈

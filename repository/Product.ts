@@ -5,12 +5,12 @@ export interface ProductShape {
   imageUrl: string;
 }
 
-export class Product implements ProductShape {
+export class Product {
   constructor(
-    private _id: number,
-    private _name: string,
-    private _price: string,
-    private _imageUrl: string
+    public id: number,
+    public name: string,
+    public price: string,
+    public imageUrl: string
   ) {}
   
   public static async fetchProducts(): Promise<Product[]> {
@@ -19,7 +19,7 @@ export class Product implements ProductShape {
       baseURL: config.public.baseUrl,
       parseResponse: responseText => {
         const products: ProductShape[] = JSON.parse(responseText);
-        return products.map(p => new Product(p.id, p.name, p.price, p.imageUrl));
+        return products.map(this.from);
       }
     });
     return products;
@@ -31,42 +31,13 @@ export class Product implements ProductShape {
       baseURL: config.public.baseUrl,
       parseResponse: responseText => {
         const product: ProductShape = JSON.parse(responseText);
-        return new Product(product.id, product.name, product.price, product.imageUrl);
+        return this.from(product);
       }
     });
     return product;
   }
   
-  get id(): number {
-    return this._id;
-  }
-  
-  get name(): string {
-    return this._name;
-  }
-  
-  get price(): string {
-    return this._price;
-  }
-  
-  get imageUrl(): string {
-    return this._imageUrl;
-  }
-  
-  
-  set id(value: number) {
-    this._id = value;
-  }
-  
-  set name(value: string) {
-    this._name = value;
-  }
-  
-  set price(value: string) {
-    this._price = value;
-  }
-  
-  set imageUrl(value: string) {
-    this._imageUrl = value;
+  public static from(productShape: ProductShape): Product {
+    return new Product(productShape.id, productShape.name, productShape.price, productShape.imageUrl);
   }
 }

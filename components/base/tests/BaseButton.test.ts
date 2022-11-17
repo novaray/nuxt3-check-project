@@ -6,8 +6,8 @@ describe('BaseButton', () => {
   
   test('메시지 출력 확인', () => {
     const wrapper = shallowMount(BaseButton, {
-      props: {
-        message: 'Hello Button'
+      slots: {
+        default: 'Hello Button'
       }
     });
     
@@ -16,8 +16,10 @@ describe('BaseButton', () => {
   
   test('로딩 상태일 때 버튼 로딩 어트리뷰트 확인', async () => {
     const wrapper = mount(BaseButton, {
+      slots: {
+        default: 'Hello Button'
+      },
       props: {
-        message: 'Test Button',
         loading: true
       }
     });
