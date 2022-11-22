@@ -1,35 +1,25 @@
 <script lang="ts" setup>
 import { ElIcon } from 'element-plus';
 import { CircleCloseFilled } from '@element-plus/icons-vue';
+import { useConfirmDialogStore } from '~/store/dialog';
 import BaseDialog from '~/components/base/BaseDialog.vue';
-import { useConfirmDialogStore, useProductDialogStore } from '~/store/dialog';
 
-const handleConfirmDialogSuccess = () => {
-  confirmStore.close();
-  setTimeout(() => {
-    productDialogStore.close();
-  }, 300);
-};
-
-const productDialogStore = useProductDialogStore();
-const confirmStore = useConfirmDialogStore();
-confirmStore.handleSuccess = handleConfirmDialogSuccess;
+const store = useConfirmDialogStore();
 
 const handleClose = () => {
-  productDialogStore.close();
+  store.close();
 };
 
-const handleConfirm = () => {
-  confirmStore.open();
+const handleSuccess = () => {
+  store.handleSuccess();
 };
-
 </script>
 
 <template>
-  <BaseDialog :visible="productDialogStore.visible">
-    <template #header="{ titleId, titleClass }">
-      <div class="product-header">
-        <h4 :id="titleId" :class="titleClass">This is a custom header!</h4>
+  <BaseDialog :visible="store.visible" style="width: 300px;">
+    <template #header="{titleId, titleClass}">
+      <div class="confirm-header">
+        <h4 :id="titleId" :class="titleClass">confirm</h4>
         <BaseButton type="danger" @click="handleClose">
           <el-icon class="el-icon--left">
             <CircleCloseFilled/>
@@ -39,14 +29,14 @@ const handleConfirm = () => {
       </div>
     </template>
     <template #content>
-      {{ productDialogStore.product }}
+      Are you sure?
     </template>
     <template #footer>
       <span class="dialog-footer">
         <BaseButton @click="handleClose">
           Cancel
         </BaseButton>
-        <BaseButton @click="handleConfirm">
+        <BaseButton @click="handleSuccess">
           Confirm
         </BaseButton>
       </span>
@@ -55,13 +45,10 @@ const handleConfirm = () => {
 </template>
 
 <style scoped>
-.product-header {
+.confirm-header {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
 }
 
-.dialog-footer button:first-child {
-  margin-right: 10px;
-}
 </style>

@@ -1,12 +1,18 @@
 <script lang="ts" setup>
 import { Product, ProductShape } from '~/repository/Product';
 import { onMounted, ref } from 'vue';
-import ProductDetailDialog from '~/components/domain/product/ProductDetailDialog.vue';
+import ProductDetailModal from '~/components/domain/product/ProductDetailDialog.vue';
+import { useProductDialogStore } from '~/store/dialog';
 const config = useRuntimeConfig();
 
+const handleProductModalClosed = () => {
+  console.log('product dialog closed');
+};
+
+const productModalStore = useProductDialogStore();
+productModalStore.handleClose = handleProductModalClosed;
 const products = ref<Product[]>();
 const product = ref<Product>();
-const dialogVisible = ref<boolean>(false);
 
 onMounted(async () => {
   products.value = await Product.fetchProducts();
@@ -23,9 +29,9 @@ const {data: productsByUseFetch} = await useFetch('/products', {
   server: false // 해당 부분 빼고 useLazyFetch로 대체 가능.
 });
 
-const handleDialogVisible = () => {
-  dialogVisible.value = !dialogVisible.value;
-}
+const handleProductModalVisible = () => {
+  productModalStore.open();
+};
 
 </script>
 
@@ -40,12 +46,8 @@ const handleDialogVisible = () => {
   <div>
     {{productsByUseFetch}}
   </div>
-  <BaseButton @click="handleDialogVisible">
+  <BaseButton @click="handleProductModalVisible">
     다이얼로그 열기
   </BaseButton>
-  <ProductDetailDialog
-      :visible="dialogVisible"
-      :product="product"
-      @close="handleDialogVisible"
-  />
+  <ProductDetailModal />
 </template>

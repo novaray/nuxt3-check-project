@@ -12,15 +12,23 @@ defineProps<BaseDialogProps>();
 const emit = defineEmits<BaseDialogEmits>();
 const handleOpened = () => {
   emit('opened');
+  console.log('opened');
 }
 const handleClosed = () => {
   emit('closed');
+  console.log('closed');
 }
 
 </script>
 
 <template>
-  <el-dialog v-model="visible" @opened="handleOpened" @closed="handleClosed">
+  <el-dialog
+      v-model="visible"
+      @opened="handleOpened"
+      @closed="handleClosed"
+      :show-close="false"
+      append-to-body
+  >
     <slot name="header">
 
     </slot>

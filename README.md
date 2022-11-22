@@ -4,10 +4,10 @@
 ui library는 element plus를 기반으로 이것저것 가지고 놀아본다. 
 
 ## 변경된 것들
-### HTML - Head 부분
+### HTML - Head(Meta)
 기존 `Nuxt2`에서는 `nuxt.config.js` 파일에서 head부분을 세팅했었음.  
-여기에서 favicon, meta, html lang, ... 등등의 것들을 세팅했다면 Nuxt3에서는 `useHead`라는 `composable`을 제공함.  
-해당 예제에서는 `app.vue`에서 세팅하도록 함.  
+여기에서 favicon, meta, html lang, ... 등등의 것들을 세팅했다면 Nuxt3에서는 `useHead`라는 `composable`을 제공하는데 해당 `composable`로도 세팅이 가능하다.    
+해당 예제에서는 `app.vue`에서 세팅했고, 물론 `nuxt.config.ts`파일에서도 세팅이 가능하다.  
 > https://v3.nuxtjs.org/api/composables/use-head#usehead
 
 ### server directory

@@ -1,4 +1,6 @@
 <script lang="ts" setup>
+import ConfirmDialog from '~/components/common/ConfirmDialog.vue';
+
 useHead({
   link: [
     { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
@@ -10,5 +12,6 @@ useHead({
 <template>
   <NuxtLayout>
     <NuxtPage />
+    <ConfirmDialog />
   </NuxtLayout>
 </template>
