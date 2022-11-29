@@ -16,6 +16,7 @@ const handleClick = async (tab: TabsPaneContext) => {
   <el-tabs :model-value="props.tabName" class="page-tabs" @tab-click="handleClick">
     <el-tab-pane label="index" name=""></el-tab-pane>
     <el-tab-pane label="Data fetching" name="data-fetching"></el-tab-pane>
+    <el-tab-pane label="Input example" name="input-example"></el-tab-pane>
   </el-tabs>
 </template>
 

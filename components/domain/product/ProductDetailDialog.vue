@@ -39,17 +39,17 @@ const handleConfirm = () => {
       </div>
     </template>
     <template #content>
-      {{ productDialogStore.product }}
+      {{ productDialogStore.data }}
     </template>
     <template #footer>
-      <span class="dialog-footer">
+      <div class="dialog-footer">
         <BaseButton @click="handleClose">
           Cancel
         </BaseButton>
         <BaseButton @click="handleConfirm">
           Confirm
         </BaseButton>
-      </span>
+      </div>
     </template>
   </BaseDialog>
 </template>
@@ -61,7 +61,8 @@ const handleConfirm = () => {
   justify-content: space-between;
 }
 
-.dialog-footer button:first-child {
-  margin-right: 10px;
+.dialog-footer {
+  display: flex;
+  justify-content: flex-end;
 }
 </style>

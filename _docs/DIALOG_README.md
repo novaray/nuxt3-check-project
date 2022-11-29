@@ -1,6 +1,6 @@
 # Dialog에 대한 연구
 ## 과거 사용 사례
-기존 Vue2에서 프로젝트를 진행할 때 Dialog를 띄울 때 Modal 컴포넌트들을 이벤트 버스에 등록하여,  
+기존 Vue2에서 프로젝트를 진행할 때 Dialog를 띄울 때 Dialog 컴포넌트들을 이벤트 버스에 등록하여,  
 플러그인으로 Vue에 설치하여 꺼내 쓰는 방식으로 진행을 했었다.
 
 근데,  
@@ -80,7 +80,7 @@ export interface ProductDialogState extends DialogState<ProductDialogData> {
   data: ProductDialogData
 }
 
-export const useProductDialogStore = defineStore('productModal', {
+export const useProductDialogStore = defineStore('productDialog', {
   state: (): ProductDialogState => ({
     visible: false,
     data: null,
@@ -101,18 +101,18 @@ export const useProductDialogStore = defineStore('productModal', {
 <script lang="ts" setup>
 // /components/domain/ProductDetailDialog.vue
 import { useProductDialogStore } from '~/store/dialog';
-const productModalStore = useProductDialogStore();
+const productDialogStore = useProductDialogStore();
 
-const handleProductModalVisible = () => {
-  productModalStore.open();
+const handleProductDialogVisible = () => {
+  productDialogStore.open();
 };
 </script>
 
 <template>
   <!--...-->
-  <BaseButton @click="handleProductModalVisible">
+  <BaseButton @click="handleProductDialogVisible">
     다이얼로그 열기
   </BaseButton>
-  <ProductDetailModal />
+  <ProductDetailDialog />
 </template>
 ```
